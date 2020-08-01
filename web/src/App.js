@@ -26,6 +26,11 @@ class App extends React.Component {
           <Route path="/seed" component={Seed} />
           <Route path="/admin" component={Admin} />
         </content>
+        <footer>
+          <hr />
+          <div>MAIL: <a href="mailto://xdsecret1@gmail.com">xdsecret1@gmail.com</a></div>
+          <div><a href="http://www.beian.miit.gov.cn/">京ICP备19053525号-1</a></div>
+        </footer>
       </div>
     );
   }

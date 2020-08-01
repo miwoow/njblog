@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import ReactMarkdown from 'react-markdown'
+import $ from 'jquery'
 
 class Admin extends React.Component {
 
@@ -14,7 +15,9 @@ class Admin extends React.Component {
         if (event.target.name == 'markdowntext') {
             this.setState({input: event.target.value});
         } else if (event.target.name == 'submitbutton') {
-
+            $.post('/api/saveblog/', {'postcontent': this.state.input}, function(data) {
+                
+            });
         }
     }
 

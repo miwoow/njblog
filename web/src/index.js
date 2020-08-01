@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createHashHistory } from 'history';
+import { Router, Route } from 'react-router';
+
+const hashHistory = createHashHistory();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router history={hashHistory}>
+    <Route path="/" component={App}/>
+  </Router>,
   document.getElementById('root')
 );
 

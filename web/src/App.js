@@ -1,25 +1,34 @@
 import React from 'react';
 import './App.css';
 import BlogList from './BlogList';
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import About from './About';
+import Seed from './Seed';
+import Admin from './Admin';
 
-function App() {
-  // const blogs = [{'id':1, 'title': 'hello', 'content':'hello world.'}]
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div className="App-right-menu">
-          <div className="App-right-menu-item"><a href="">About</a></div>
-          <div className="App-right-menu-item"><a href="">Seed</a></div>
-          <div className="App-right-menu-item"><a href="">Login</a></div>
-        </div>
-        <h1>闲情逸志的博客</h1>
-      </header>
-      <content>
-        {/* <BlogList blogs={blogs}/> */}
-        <BlogList />
-      </content>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <div className="App-right-menu">
+            <div className="App-right-menu-item"><Link to="/about">About</Link></div>
+            <div className="App-right-menu-item"><Link to="/seed">Seed</Link></div>
+            <div className="App-right-menu-item"><Link to="/admin">Login</Link></div>
+            <div className="App-right-menu-item"><Link to="/">Home</Link></div>
+          </div>
+          <h1>闲情逸志的博客</h1>
+        </header>
+        <content>
+          {/* <BlogList blogs={blogs}/> */}
+          <Route path="/" exact component={BlogList} />
+          <Route path="/about" component={About} />
+          <Route path="/seed" component={Seed} />
+          <Route path="/admin" component={Admin} />
+        </content>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -19,13 +19,13 @@ class App extends React.Component {
           </div>
           <h1>闲情逸志的博客</h1>
         </header>
-        <content>
+        <div>
           {/* <BlogList blogs={blogs}/> */}
           <Route path="/" exact component={BlogList} />
           <Route path="/about" component={About} />
           <Route path="/seed" component={Seed} />
           <Route path="/admin" component={Admin} />
-        </content>
+        </div>
         <footer>
           <hr />
           <div>MAIL: <a href="mailto://xdsecret1@gmail.com">xdsecret1@gmail.com</a></div>

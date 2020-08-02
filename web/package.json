@@ -15,6 +15,7 @@
     "react-scripts": "3.4.1",
     "react-syntax-highlighter": "^13.2.1"
   },
+  "proxy" : "http://localhost:3001/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

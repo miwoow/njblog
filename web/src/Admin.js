@@ -12,11 +12,12 @@ class Admin extends React.Component {
     }
 
     handleChange(event) {
-        if (event.target.name == 'markdowntext') {
+        console.log(event.target.name);
+        if (event.target.name === 'markdowntext') {
             this.setState({input: event.target.value});
-        } else if (event.target.name == 'submitbutton') {
-            $.post('/api/saveblog/', {'postcontent': this.state.input}, function(data) {
-                
+        } else if (event.target.name === 'submitbutton') {
+            $.post('http://localhost:3001/api/saveblog/', {'postcontent': this.state.input}, function(data) {
+                console.log(data);
             });
         }
     }
@@ -30,7 +31,7 @@ class Admin extends React.Component {
                 <div className="Admin-html">
                     <ReactMarkdown source={this.state.input} />
                 </div>
-                <button name="submitbutton" onClick={this.onChange}>发布</button>
+                <button name="submitbutton" onClick={this.handleChange}>发布</button>
             </div>
         )
     }

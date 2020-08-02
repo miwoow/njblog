@@ -1,15 +1,21 @@
 import React from 'react';
 import './App.css';
 import PageNum from './PageNum'
+import $ from 'jquery'
 
 class BlogList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {blogList:[{'id':1, 'title': 'hello', 'content': 'hello world.'}]};
+        this.state = {blogList:[]};
     }
 
     componentDidMount() {
-        
+        $.get('http://localhost:3001/api/getblogs/', function(data) {
+            // this.state.blogList = data['msg'];
+            this.setState({
+                blogList: data['msg']
+            });
+        }.bind(this));
     }
 
     render() {

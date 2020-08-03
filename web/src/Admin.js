@@ -49,7 +49,7 @@ class Admin extends React.Component {
                 processData: false,
                 success: function (data) {
                     if (data.code == 0) {
-                        
+                        console.log(data.msg.files.path);
                     }
                 }.bind(this)
             });

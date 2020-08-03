@@ -54,6 +54,9 @@ router.post('/uploadimg', function(req, res, next) {
         if (extName.length == 0) {
          // return console.log("no img");
         }
+        console.log(files.path);
+        console.log(files.type);
+        files.path = files.path.substring(7);
         res.send({'code': 0, 'msg': files});
       });
     

@@ -44,8 +44,7 @@ class BlogModel {
         this.getCollection(function(err, blog_collection) {
             if (err) callback(err);
             else {
-                var blog = {'title': title, 'body': body, 'createAt': new Date()};
-                console.log(blog);
+                var blog = {'title': title, 'body': body, 'createAt': new Date(), 'author': 'xd'};
                 blog_collection.insertOne(blog, function() {
                     callback(null, blog);
                 });

@@ -3,6 +3,10 @@ import './App.css';
 import ReactMarkdown from 'react-markdown'
 import $ from 'jquery'
 import { Button, Input } from 'reactstrap';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+
+import { Editor } from '@toast-ui/react-editor';
 
 class Admin extends React.Component {
 
@@ -10,6 +14,8 @@ class Admin extends React.Component {
         super(props);
         this.state = {input:'', title: ''}
         this.handleChange = this.handleChange.bind(this);
+        this.handleEditorChange = this.handleEditorChange.bind(this);
+        this.editorRef = React.createRef();
     }
 
     handleChange(event) {
@@ -25,6 +31,11 @@ class Admin extends React.Component {
         }
     }
 
+    handleEditorChange(e) {
+        var instance = this.editorRef.current.getInstance();
+        this.setState({input:instance.getMarkdown()});
+    }
+
     render() {
         return (
             <div className="Admin">
@@ -33,13 +44,20 @@ class Admin extends React.Component {
                         <label>标题</label>
                         <Input name="blogtitle" onChange={this.handleChange} />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label>内容</label>
-                        <textarea className="form-control" name="markdowntext" cols="50" rows="10" onChange={this.handleChange}></textarea>
+                        {/* <textarea className="form-control" name="markdowntext" cols="50" rows="10" onChange={this.handleChange}></textarea> */}
+                        <Editor
+                            initialValue="hello world!"
+                            previewStyle="vertical"
+                            height="600px"
+                            initialEditType="markdown"
+                            name="markdowntext"
+                            useCommandShortcut={true}
+                            ref={this.editorRef}
+                            onChange={this.handleEditorChange}
+                        />
                     </div>
-                </div>
-                <div className="admin-html">
-                    <ReactMarkdown source={this.state.input} />
                 </div>
                 <Button name="submitbutton" color="primary" onClick={this.handleChange}>发布</Button>
             </div>

@@ -19,7 +19,7 @@ class App extends React.Component {
           </div>
           <h1>闲情逸志的博客</h1>
         </header>
-        <div>
+        <div className="app-content">
           {/* <BlogList blogs={blogs}/> */}
           <Route path="/" exact component={BlogList} />
           <Route path="/about" component={About} />

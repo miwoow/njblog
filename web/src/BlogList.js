@@ -25,7 +25,7 @@ class BlogList extends React.Component {
                 {this.state.blogList.map((blog)=>
                     <div className="Blog" key={blog.id.toString()} id={blog.id.toString()}>
                         <h3>{blog.title}</h3>
-                        <content>{blog.content}</content>
+                        <p>{blog.body}</p>
                     </div>                
                 )}
             </content>

@@ -1,25 +1,27 @@
 var express = require('express');
-const { default: BlogModel } = require('../models/BlogModel');
+const BlogModel = require('../models/BlogModel').BlogModel;
 const { json } = require('express');
 var router = express.Router();
 
+var blogModel = new BlogModel();
+
 /* GET home page. */
 router.post('/saveblog', function(req, res, next) {
-  console.log(JSON.stringify(req.body));
-  jsonBody = JSON.stringify(req.body);
-  BlogModel.createBlog(jsonBody['title'], jsonBody['body'], function(err, doc) {
-    res.json({'code': 0, 'msg': 'ok'});
+  blogModel.createBlog(req.body['title'], req.body['body'], function(err, doc) {
+    if (err) {
+        res.json({'code': 1, 'msg': err});
+    } else {
+        res.json({'code': 0, 'msg': 'ok'});
+    }
   });
 });
 
 router.get('/getblogs', function(req, res, next) {
   console.log(req.query);
   
-  BlogModel.findPage(0, function(err, docs) {
+  blogModel.findPage(0, function(err, docs) {
     res.json({'code': 0, 'msg': docs});
   });
-//   res.json({'code':0, 'msg': [{'id': 1, 'title': 'hello', 'body': 'hello world.'},
-// {'id': 2, 'title': 'xudong', 'body': 'xudong hello.'}]})
 })
 
 module.exports = router;

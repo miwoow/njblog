@@ -2,12 +2,13 @@ var MongoClient = require('mongodb').MongoClient;
 
 class BlogModel {
     constructor() {
-        mongodbUri = 'mongodb://localhost/myblog';
-        MongoClient.connect(mongodbUri, function(err, db) {
+        var that = this;
+        var mongodbUri = 'mongodb://localhost/myblog';
+        MongoClient.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
             if (err) {
                 return console.dir(err);
             } else {
-                this.db = db;
+                that.db = db.db('myblog');
             }
         });
     }
@@ -17,7 +18,7 @@ class BlogModel {
             if (err) {
                 callback(err);
             } else {
-                callback(blog_collection);
+                callback(null, blog_collection);
             }
         });
     }
@@ -31,7 +32,7 @@ class BlogModel {
                     if(err) {
                         callback(err);
                     } else {
-                        callback(docs);
+                        callback(null, docs);
                     }
                 });
 
@@ -43,8 +44,9 @@ class BlogModel {
         this.getCollection(function(err, blog_collection) {
             if (err) callback(err);
             else {
-                blog = {'title': title, 'body': body, 'createAt': new Date()};
-                blog_collection.insert(blog, function() {
+                var blog = {'title': title, 'body': body, 'createAt': new Date()};
+                console.log(blog);
+                blog_collection.insertOne(blog, function() {
                     callback(null, blog);
                 });
             }
@@ -52,4 +54,4 @@ class BlogModel {
     }
 }
 
-module.exports = BlogModel;
+exports.BlogModel = BlogModel;

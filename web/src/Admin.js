@@ -39,7 +39,20 @@ class Admin extends React.Component {
         var instance = this.editorRef.current.getInstance();
         instance.eventManager.removeEventHandler('addImageBlobHook');
         instance.eventManager.listen('addImageBlobHook', (blob, callback) => {
-            console.log(blob);
+            const formData = new FormData();
+            formData.append('files', blob);
+            $.ajax({
+                url:'http://localhost:3001/api/uploadimg/',
+                type:'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.code == 0) {
+                        
+                    }
+                }.bind(this)
+            });
         });
     }
 
@@ -53,7 +66,6 @@ class Admin extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>内容</label>
-                        {/* <textarea className="form-control" name="markdowntext" cols="50" rows="10" onChange={this.handleChange}></textarea> */}
                         <Editor
                             initialValue="hello world!"
                             previewStyle="vertical"

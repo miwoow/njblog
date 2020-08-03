@@ -15,7 +15,7 @@
 
 .Blog {
   text-align: left;
-  margin: 10px;
+  margin: 20px 0;
 }
 
 .App-header {
@@ -27,6 +27,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-header h1 {
+  margin: 40px auto;
 }
 
 .App-link {
@@ -65,4 +69,22 @@
 .app-content {
   max-width: 960px;
   margin: 20px auto;
+}
+
+.blog-author {
+  color: #999;
+  margin: 5px 0;
+}
+
+.Admin {
+  min-height: 300px;
+  text-align: left;
+}
+
+.admin-markdown {
+  
+}
+
+.admin-html {
+  
 }

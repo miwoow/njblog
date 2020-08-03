@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import ReactMarkdown from 'react-markdown'
 import $ from 'jquery'
+import { Button, Input } from 'reactstrap';
 
 class Admin extends React.Component {
 
@@ -27,14 +28,20 @@ class Admin extends React.Component {
     render() {
         return (
             <div className="Admin">
-                <div className="Admin-markdown">
-                    <input name="blogtitle" onChange={this.handleChange} />
-                    <textarea name="markdowntext" cols="50" rows="10" onChange={this.handleChange}></textarea>
+                <div className="admin-markdown">
+                    <div className="form-group">
+                        <label>标题</label>
+                        <Input name="blogtitle" onChange={this.handleChange} />
+                    </div>
+                    <div class="form-group">
+                        <label>内容</label>
+                        <textarea className="form-control" name="markdowntext" cols="50" rows="10" onChange={this.handleChange}></textarea>
+                    </div>
                 </div>
-                <div className="Admin-html">
+                <div className="admin-html">
                     <ReactMarkdown source={this.state.input} />
                 </div>
-                <button name="submitbutton" onClick={this.handleChange}>发布</button>
+                <Button name="submitbutton" color="primary" onClick={this.handleChange}>发布</Button>
             </div>
         )
     }

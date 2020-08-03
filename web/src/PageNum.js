@@ -3,10 +3,12 @@ import './App.css';
 
 function PageNum() {
   return (
-    <div className="PageNum">
-      <a href="">上一页</a>
-      <a href="">下一页</a>
-    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">上一页</a></li>
+            <li class="page-item"><a class="page-link" href="#">下一页</a></li>
+        </ul>
+</nav>
   );
 }
 

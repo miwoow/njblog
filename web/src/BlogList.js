@@ -3,6 +3,7 @@ import './App.css';
 import PageNum from './PageNum'
 import ReactMarkdown from 'react-markdown'
 import $ from 'jquery'
+import { Link } from 'react-router-dom'
 
 class BlogList extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class BlogList extends React.Component {
                 { this.state.blogList && this.state.blogList.map((blog)=>
                     <div className="Blog" key={blog._id.toString()} id={blog._id.toString()}>
                         <h1>{blog.title}</h1>
+                        <div className="blog-author">{blog.createAt.substring(0, 10)} by <Link to="/about">xd</Link></div>
                         <ReactMarkdown source={blog.body} />
                     </div>                
                 )}

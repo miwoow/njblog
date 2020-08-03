@@ -7,7 +7,7 @@ class Admin extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {input:''}
+        this.state = {input:'', title: ''}
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -16,9 +16,11 @@ class Admin extends React.Component {
         if (event.target.name === 'markdowntext') {
             this.setState({input: event.target.value});
         } else if (event.target.name === 'submitbutton') {
-            $.post('http://localhost:3001/api/saveblog/', {'postcontent': this.state.input}, function(data) {
+            $.post('http://localhost:3001/api/saveblog/', {'body': this.state.input, 'title': this.state.title}, function(data) {
                 console.log(data);
             });
+        } else if (event.target.name === 'blogtitle') {
+            this.setState({'title': event.target.value});
         }
     }
 
@@ -26,6 +28,7 @@ class Admin extends React.Component {
         return (
             <div className="Admin">
                 <div className="Admin-markdown">
+                    <input name="blogtitle" onChange={this.handleChange} />
                     <textarea name="markdowntext" cols="50" rows="10" onChange={this.handleChange}></textarea>
                 </div>
                 <div className="Admin-html">

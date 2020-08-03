@@ -19,7 +19,6 @@ class Admin extends React.Component {
     }
 
     handleChange(event) {
-        console.log(event.target.name);
         if (event.target.name === 'markdowntext') {
             this.setState({input: event.target.value});
         } else if (event.target.name === 'submitbutton') {
@@ -34,6 +33,14 @@ class Admin extends React.Component {
     handleEditorChange(e) {
         var instance = this.editorRef.current.getInstance();
         this.setState({input:instance.getMarkdown()});
+    }
+
+    componentDidMount() {
+        var instance = this.editorRef.current.getInstance();
+        instance.eventManager.removeEventHandler('addImageBlobHook');
+        instance.eventManager.listen('addImageBlobHook', (blob, callback) => {
+            console.log(blob);
+        });
     }
 
     render() {
@@ -57,6 +64,7 @@ class Admin extends React.Component {
                             ref={this.editorRef}
                             onChange={this.handleEditorChange}
                         />
+                        
                     </div>
                 </div>
                 <Button name="submitbutton" color="primary" onClick={this.handleChange}>发布</Button>

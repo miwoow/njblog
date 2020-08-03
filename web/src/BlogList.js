@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import PageNum from './PageNum'
+import ReactMarkdown from 'react-markdown'
 import $ from 'jquery'
 
 class BlogList extends React.Component {
@@ -24,8 +25,8 @@ class BlogList extends React.Component {
             <content>
                 { this.state.blogList && this.state.blogList.map((blog)=>
                     <div className="Blog" key={blog._id.toString()} id={blog._id.toString()}>
-                        <h3>{blog.title}</h3>
-                        <p>{blog.body}</p>
+                        <h1>{blog.title}</h1>
+                        <ReactMarkdown source={blog.body} />
                     </div>                
                 )}
             </content>
@@ -34,25 +35,5 @@ class BlogList extends React.Component {
         )
     }
 }
-
-
-// function BlogList(props) {
-//     const blogs = props.blogs;
-//     const blogList = blogs.map((blog)=>
-//         <div className="Blog" key={blog.id.toString()} id={blog.id.toString()}>
-//             <h3>{blog.title}</h3>
-//             <content>{blog.content}</content>
-//         </div>
-//     );
-
-//   return (
-//     <div className="BlogList">
-//       <content>
-//         {blogList}
-//       </content>
-//       <PageNum />
-//     </div>
-//   );
-// }
 
 export default BlogList;

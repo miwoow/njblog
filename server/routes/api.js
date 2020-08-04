@@ -19,11 +19,15 @@ router.post('/saveblog', function(req, res, next) {
   });
 });
 
-router.get('/getblogs', function(req, res, next) {
+router.get('/getblogs/:pageNum', function(req, res, next) {
   console.log(req.query);
+
+  var pageNum = parseInt(pageNum);
   
-  blogModel.findPage(0, function(err, docs) {
-    res.json({'code': 0, 'msg': docs});
+  blogModel.getCount(function(count_err, count_num) {
+    blogModel.findPage(pageNum, function(err, docs) {
+        res.json({'code': 0, 'msg': {'allnum': count_num, 'docs': docs}});
+    });
   });
 })
 

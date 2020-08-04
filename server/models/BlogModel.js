@@ -40,6 +40,17 @@ class BlogModel {
         });
     }
 
+    getCount(callback) {
+        this.getCollection(function(err, blog_collection) {
+            if (err) callback(err);
+            else {
+                blog_collection.find().count(function(err, num) {
+                    callback(err, num);
+                });
+            }
+        });
+    }
+
     createBlog(title, body, callback) {
         this.getCollection(function(err, blog_collection) {
             if (err) callback(err);

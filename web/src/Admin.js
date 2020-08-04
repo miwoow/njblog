@@ -40,7 +40,7 @@ class Admin extends React.Component {
         instance.eventManager.removeEventHandler('addImageBlobHook');
         instance.eventManager.listen('addImageBlobHook', (blob, callback) => {
             const formData = new FormData();
-            formData.append('files', blob);
+            formData.append('img', blob);
             $.ajax({
                 url:'http://localhost:3001/api/uploadimg/',
                 type:'POST',
@@ -49,7 +49,8 @@ class Admin extends React.Component {
                 processData: false,
                 success: function (data) {
                     if (data.code == 0) {
-                        console.log(data.msg.files.path);
+                        console.log(data.msg.img.path);
+                        callback('http://localhost:3001/' + data.msg.img.path);
                     }
                 }.bind(this)
             });

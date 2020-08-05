@@ -4,17 +4,30 @@ import BlogList from './BlogList';
 import { Route, Link } from "react-router-dom";
 import About from './About';
 import Seed from './Seed';
+import Login from './Login';
 import Admin from './Admin';
 
-class App extends React.Component {
-  render() {
+import { useCookies } from 'react-cookie';
+
+function App() {
+
+  const [cookies, setCookies] = useCookies('token');
+
+  function loginLink() {
+    if (cookies.token && cookies.token.length > 5) {
+      return (<div className="App-right-menu-item"><Link to="/admin">Admin</Link></div>);
+    } else {
+      return (<div className="App-right-menu-item"><Link to="/login">Login</Link></div>);
+    }
+  }
+  
     return (
       <div className="App">
         <header className="App-header">
           <div className="App-right-menu">
             <div className="App-right-menu-item"><Link to="/about">About</Link></div>
             <div className="App-right-menu-item"><Link to="/seed">Seed</Link></div>
-            <div className="App-right-menu-item"><Link to="/admin">Login</Link></div>
+            {loginLink()}
             <div className="App-right-menu-item"><Link to="/">Home</Link></div>
           </div>
           <h1>闲情逸志的博客</h1>
@@ -24,6 +37,7 @@ class App extends React.Component {
           <Route path="/" exact component={BlogList} />
           <Route path="/about" component={About} />
           <Route path="/seed" component={Seed} />
+          <Route path="/login" component={Login} />
           <Route path="/admin" component={Admin} />
         </div>
         <footer>
@@ -33,7 +47,7 @@ class App extends React.Component {
         </footer>
       </div>
     );
-  }
+  
 }
 
 export default App;

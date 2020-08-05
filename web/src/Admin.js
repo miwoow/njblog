@@ -5,13 +5,20 @@ import $ from 'jquery'
 import { Button, Input } from 'reactstrap';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 import { Editor } from '@toast-ui/react-editor';
 
 class Admin extends React.Component {
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     constructor(props) {
         super(props);
+        const { cookies } = props;
         this.state = {input:'', title: ''}
         this.handleChange = this.handleChange.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
@@ -22,7 +29,9 @@ class Admin extends React.Component {
         if (event.target.name === 'markdowntext') {
             this.setState({input: event.target.value});
         } else if (event.target.name === 'submitbutton') {
-            $.post(process.env.REACT_APP_API_HOST+'api/saveblog/', {'body': this.state.input, 'title': this.state.title}, function(data) {
+            const { cookies } = this.props;
+            console.log(cookies);
+            $.post(process.env.REACT_APP_API_HOST+'api/saveblog/', {'body': this.state.input, 'title': this.state.title, 'token': cookies.get('token')}, function(data) {
                 console.log(data);
             });
         } else if (event.target.name === 'blogtitle') {
@@ -86,4 +95,4 @@ class Admin extends React.Component {
     }
 }
 
-export default Admin;
+export default withCookies(Admin);

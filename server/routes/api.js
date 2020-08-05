@@ -3,20 +3,41 @@ const BlogModel = require('../models/BlogModel').BlogModel;
 const { json } = require('express');
 var path = require('path');
 const formidable = require('formidable');
+const { route } = require('.');
+const md5 = require('md5-node');
 
 var router = express.Router();
 
 var blogModel = new BlogModel();
 
+var gToken = '';
+
 /* GET home page. */
 router.post('/saveblog', function(req, res, next) {
-  blogModel.createBlog(req.body['title'], req.body['body'], function(err, doc) {
-    if (err) {
-        res.json({'code': 1, 'msg': err});
+    console.log(gToken);
+    console.log('=============')
+    console.log(req.body['token']);
+    if (gToken.length > 5 && req.body['token'] === gToken) {
+        blogModel.createBlog(req.body['title'], req.body['body'], function(err, doc) {
+            if (err) {
+                res.json({'code': 1, 'msg': err});
+            } else {
+                res.json({'code': 0, 'msg': 'ok'});
+            }
+          });
     } else {
-        res.json({'code': 0, 'msg': 'ok'});
+        res.json({'code': 1, 'msg': 'need auth'});
     }
-  });
+});
+
+router.post('/login', function(req, res, next) {
+    if (req.body['email']==='a@qq.com' && req.body['passwd'] ==='xd850426') {
+        gToken = md5(new Date() + req.body['email'] + req.body['passwd']);
+        res.cookie('token', gToken);
+        res.json({'code': 0, 'msg': {'token': gToken}});
+    } else {
+        res.json({'code': 1, 'msg': 'u or p error'});
+    }
 });
 
 router.get('/getblogs/:pageNum', function(req, res, next) {

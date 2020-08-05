@@ -6,6 +6,8 @@ import $ from 'jquery'
 import { Link } from 'react-router-dom'
 import Pager from './Pager'
 
+require('dotenv').config()
+
 class BlogList extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,7 @@ class BlogList extends React.Component {
     }
 
     componentDidMount() {
-        $.get('http://localhost:3001/api/getblogs/'+this.state.PageIndex, function(data) {
+        $.get(process.env.API_HOST+'api/getblogs/'+this.state.PageIndex, function(data) {
             // this.state.blogList = data['msg'];
             this.setState({
                 blogList: data['msg']['docs'],

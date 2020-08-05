@@ -8,8 +8,6 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 
 import { Editor } from '@toast-ui/react-editor';
 
-require('dotenv').config()
-
 class Admin extends React.Component {
 
     constructor(props) {
@@ -24,7 +22,7 @@ class Admin extends React.Component {
         if (event.target.name === 'markdowntext') {
             this.setState({input: event.target.value});
         } else if (event.target.name === 'submitbutton') {
-            $.post(process.env.API_HOST+'api/saveblog/', {'body': this.state.input, 'title': this.state.title}, function(data) {
+            $.post(process.env.REACT_APP_API_HOST+'api/saveblog/', {'body': this.state.input, 'title': this.state.title}, function(data) {
                 console.log(data);
             });
         } else if (event.target.name === 'blogtitle') {
@@ -44,7 +42,7 @@ class Admin extends React.Component {
             const formData = new FormData();
             formData.append('img', blob);
             $.ajax({
-                url: process.env.API_HOST+'api/uploadimg/',
+                url: process.env.REACT_APP_API_HOST+'api/uploadimg/',
                 type:'POST',
                 data: formData,
                 contentType: false,
@@ -52,7 +50,7 @@ class Admin extends React.Component {
                 success: function (data) {
                     if (data.code == 0) {
                         console.log(data.msg.img.path);
-                        callback(process.env.API_HOST + data.msg.img.path);
+                        callback(process.env.REACT_APP_API_HOST + data.msg.img.path);
                     }
                 }.bind(this)
             });

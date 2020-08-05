@@ -4,7 +4,7 @@ import $ from 'jquery'
 import { useCookies } from 'react-cookie';
 
 
-function Login() {
+function MLogin() {
 
     const [email, setEmail] = useState('');
     const [passwd, setPasswd] = useState('');
@@ -47,4 +47,4 @@ function Login() {
     
 }
 
-export default Login;
+export default MLogin;

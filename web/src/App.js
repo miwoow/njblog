@@ -14,7 +14,7 @@ class App extends React.Component {
           <div className="App-right-menu">
             <div className="App-right-menu-item"><Link to="/about">About</Link></div>
             <div className="App-right-menu-item"><Link to="/seed">Seed</Link></div>
-            {/* <div className="App-right-menu-item"><Link to="/admin">Login</Link></div> */}
+            <div className="App-right-menu-item"><Link to="/admin">Login</Link></div>
             <div className="App-right-menu-item"><Link to="/">Home</Link></div>
           </div>
           <h1>闲情逸志的博客</h1>

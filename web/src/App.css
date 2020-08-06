@@ -64,9 +64,9 @@
 .app-content {
   max-width: 960px;
   margin: 0px auto 20px auto;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc;
   background-color: #eee;
-  border-radius: 5px;
+  border-radius: 5px; */
   padding: 20px;
 }
 
@@ -92,4 +92,9 @@
 
 .Like {
   padding: 10px 5px;
+  cursor: pointer;
+}
+
+.Blog h1 {
+  font-weight: bold;
 }

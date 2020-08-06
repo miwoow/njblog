@@ -88,11 +88,13 @@ function BlogList(props) {
                     <h1>{blog.title}</h1>
                     <div className="blog-author">{blog.createAt.substring(0, 10)} by <Link to="/about">xd</Link></div>
                     <ReactMarkdown source={blog.body} />
-                    <div className="Like">
-                        <FontAwesomeIcon id={blog._id} icon={faHeart} fixedWidth size="lg" onClick={onLikeClick}/>{blog.like}
+                    <motion.div 
+                        whileHover={{y:+2, x:+2}}
+                        className="Like">
+                        <FontAwesomeIcon id={blog._id} icon={faHeart} fixedWidth size="lg" onClick={onLikeClick}/>&nbsp;{blog.like}
         
                         {/* <FontAwesomeIcon id={blog.id} icon={faCommentAlt} flip="horizontal" fixedWidth size="lg" onClick={onCommentClick}/>Comment */}
-                    </div>
+                    </motion.div>
                     { blog.error && 
                         <motion.div 
                             initial={{opacity:1}}

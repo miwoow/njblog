@@ -13,11 +13,6 @@
   }
 }
 
-.Blog {
-  text-align: left;
-  margin: 20px 0;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 20vh;
@@ -68,7 +63,11 @@
 
 .app-content {
   max-width: 960px;
-  margin: 20px auto;
+  margin: 0px auto 20px auto;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 20px;
 }
 
 .blog-author {
@@ -83,4 +82,14 @@
 
 .Login {
   text-align: left;
+}
+
+.Blog {
+  text-align: left;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.Like {
+  padding: 10px 5px;
 }

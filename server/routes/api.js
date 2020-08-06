@@ -33,7 +33,6 @@ router.post('/saveblog', function(req, res, next) {
 router.post('/like', function(req, res, next) {
     console.log(req.body['id']);
     var id = req.body['id'];
-    id=1;
     if (id.length > 5) {
         blogModel.findAndIncLike(req.body['id'], function(err, doc) {
             res.json({'code': 0, 'msg': doc});

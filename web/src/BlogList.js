@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faCommentAlt } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import { motion } from "framer-motion"
 
 function BlogList(props) {
 
@@ -87,13 +88,19 @@ function BlogList(props) {
                     <h1>{blog.title}</h1>
                     <div className="blog-author">{blog.createAt.substring(0, 10)} by <Link to="/about">xd</Link></div>
                     <ReactMarkdown source={blog.body} />
-                    <div>
+                    <div className="Like">
                         <FontAwesomeIcon id={blog._id} icon={faHeart} fixedWidth size="lg" onClick={onLikeClick}/>{blog.like}
         
-                        <FontAwesomeIcon id={blog.id} icon={faCommentAlt} flip="horizontal" fixedWidth size="lg" onClick={onCommentClick}/>Comment
+                        {/* <FontAwesomeIcon id={blog.id} icon={faCommentAlt} flip="horizontal" fixedWidth size="lg" onClick={onCommentClick}/>Comment */}
                     </div>
                     { blog.error && 
-                        <Alert variant="danger">{blog.error}</Alert>
+                        <motion.div 
+                            initial={{opacity:1}}
+                            animate={{opacity:0}} 
+                            onAnimationComplete={()=>{blog.error=''; setBlogs({data:blogs.data, allnum: blogs.allnum});}}
+                            transition={{duration:3}}>
+                            <Alert variant="danger">{blog.error}</Alert>
+                        </motion.div>
                     }
                 </div>            
             )}

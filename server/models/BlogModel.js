@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 var MongoClient = require('mongodb').MongoClient;
 
 class BlogModel {
@@ -19,6 +21,18 @@ class BlogModel {
                 callback(err);
             } else {
                 callback(null, blog_collection);
+            }
+        });
+    }
+
+    findAndIncLike(id, callback) {
+        this.getCollection(function(err, blog_collection) {
+            if (err) {
+                callback(err);
+            } else {
+                blog_collection.findOneAndUpdate({'_id': ObjectId(id)}, {'$inc': {'like': 1}}, function(err, docs) {
+                    callback(err, docs);
+                });
             }
         });
     }

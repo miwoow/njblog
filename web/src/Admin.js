@@ -31,7 +31,9 @@ class Admin extends React.Component {
         } else if (event.target.name === 'submitbutton') {
             const { cookies } = this.props;
             console.log(cookies);
-            $.post(process.env.REACT_APP_API_HOST+'api/saveblog/', {'body': this.state.input, 'title': this.state.title, 'token': cookies.get('token')}, function(data) {
+            $.post(process.env.REACT_APP_API_HOST+'api/saveblog/', 
+                {'body': this.state.input, 'title': this.state.title, 'token': cookies.get('token')}, 
+                function(data) {
                 console.log(data);
             });
         } else if (event.target.name === 'blogtitle') {

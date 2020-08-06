@@ -30,6 +30,19 @@ router.post('/saveblog', function(req, res, next) {
     }
 });
 
+router.post('/like', function(req, res, next) {
+    console.log(req.body['id']);
+    var id = req.body['id'];
+    id=1;
+    if (id.length > 5) {
+        blogModel.findAndIncLike(req.body['id'], function(err, doc) {
+            res.json({'code': 0, 'msg': doc});
+        });
+    } else {
+        res.json({'code': 1, 'msg': 'id is short:' + id});
+    }  
+});
+
 router.post('/login', function(req, res, next) {
     if (req.body['email']==='a@qq.com' && req.body['passwd'] ==='123') {
         gToken = md5(new Date() + req.body['email'] + req.body['passwd']);

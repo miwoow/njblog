@@ -5,29 +5,23 @@ class Pager extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
+        this.state = {goIndex:''};
         this.goIndexChanged = this.goIndexChanged.bind(this);
         this.goClicked = this.goClicked.bind(this);
     }
 
-    getInitialState() {
-        return {
-            goIndex:''
-        };
-    }
-
-    getDefaultProps() {
-        return {
-			totalCount:0,
-			firstText:'First',
-			prevText:'Prev',
-			nextText:'Next',
-			lastText:'Last',
-			showLinkNum:10 ,//如果设置小于0的数字，那么则不显示数字标签
-			alwaysShow:true,//当总页数只有一页时是否显示
-			goWidth:50,//跳转输入框的宽度
-			recordTextFormat: '{0}/{1}' //{0}对应当前页 {1}对应总页数 {2}对应总记录数 如果不希望显示此部分内容，将此部分赋空值
-		};
-    }
+    static defaultProps = {
+        totalCount:0,
+        firstText:'First',
+        prevText:'Prev',
+        nextText:'Next',
+        lastText:'Last',
+        showLinkNum:10 ,//如果设置小于0的数字，那么则不显示数字标签
+        alwaysShow:true,//当总页数只有一页时是否显示
+        goWidth:50,//跳转输入框的宽度
+        recordTextFormat: '{0}/{1}' //{0}对应当前页 {1}对应总页数 {2}对应总记录数 如果不希望显示此部分内容，将此部分赋空值
+    };
 
     callBack(index) {
         this.props.callBack(index);
@@ -53,7 +47,7 @@ class Pager extends React.Component {
 
     goClicked(e) {
         var idx = ~~this.state.goIndex -1;
-		if(idx>=0&& idx!=this.props.pageIndex){
+		if(idx>=0&& idx!==this.props.pageIndex){
 			this.callBack(idx);
 			this.setState({goIndex:''});
 		}
@@ -62,13 +56,13 @@ class Pager extends React.Component {
 
     render() {
         var display='';
-		if(!this.props.alwaysShow || this.props.totalCount == 0){
+		if(!this.props.alwaysShow || this.props.totalCount === 0){
 			display = this.props.totalCount<=this.props.pageSize?'none':'';
 		}
 		var totalPages = this.getTotalPages();
 		var arr=[];
-		var prevDisplay = 0==this.props.pageIndex?'disabled':'';
-		var lastDisplay = totalPages-1==this.props.pageIndex?'disabled':'';
+		var prevDisplay = 0===this.props.pageIndex?'disabled':'';
+		var lastDisplay = totalPages-1===this.props.pageIndex?'disabled':'';
 		arr.push(
 			this.getPageLink({
 				Key : "F",
@@ -95,7 +89,7 @@ class Pager extends React.Component {
 						Key : i,
 						Text :  i + 1,
 						Index : i,
-						ClassName : i==this.props.pageIndex?'active':''
+						ClassName : i===this.props.pageIndex?'active':''
 					})
 				);
 			}

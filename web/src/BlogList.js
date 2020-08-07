@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import PageNum from './PageNum'
 import $ from 'jquery'
 import Pager from './Pager'
 
 import { Alert } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faCommentAlt } from '@fortawesome/free-regular-svg-icons'
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import CodeBlock from './CodeBlock';
 import { motion } from "framer-motion"
 
 function BlogList(props) {
@@ -38,7 +38,7 @@ function BlogList(props) {
             success: function (data) {
                 if (data.code === 0) {
                     blogs.data.forEach((blog, index)=>{
-                        if (blog._id == data.msg.value._id) {
+                        if (blog._id === data.msg.value._id) {
                             if (blog.like === data.msg.value.like) {
                                 blog.like = blog.like + 1;
                             } else {
@@ -62,11 +62,6 @@ function BlogList(props) {
         });
       }
   
-      function onCommentClick(e) {
-  
-      }
-  
-    
     var pagerSetting={
         totalCount:blogs.count,
         pageSize:pageSize,
@@ -87,7 +82,10 @@ function BlogList(props) {
                 <div className="Blog" key={blog._id.toString()} id={blog._id.toString()}>
                     <h1>{blog.title}</h1>
                     <div className="blog-author">{blog.createAt.substring(0, 10)} by <Link to="/about">xd</Link></div>
-                    <ReactMarkdown source={blog.body} className="blog-markdown-content" />
+                    <ReactMarkdown 
+                        source={blog.body} 
+                        className="blog-markdown-content"
+                        renderers={{code: CodeBlock}} />
                     <motion.div 
                         whileHover={{y:+2, x:+2}}
                         className="Like">

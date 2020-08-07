@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import ReactMarkdown from 'react-markdown'
 import $ from 'jquery'
 import { Button, Input } from 'reactstrap';
 import 'codemirror/lib/codemirror.css';
@@ -59,7 +58,7 @@ class Admin extends React.Component {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code === 0) {
                         console.log(data.msg.img.path);
                         callback(process.env.REACT_APP_API_HOST + data.msg.img.path);
                     }

@@ -53,9 +53,7 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/getblogs/:pageNum', function(req, res, next) {
-  console.log(req.query);
-
-  var pageNum = parseInt(pageNum);
+  var pageNum = parseInt(req.params.pageNum);
   
   blogModel.getCount(function(count_err, count_num) {
     blogModel.findPage(pageNum, function(err, docs) {

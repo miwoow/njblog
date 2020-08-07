@@ -28,7 +28,7 @@ class Pager extends React.Component {
     }
 
     getPageLink(p) {
-        return <PageLinker key={p.Key} text={p.Text} index={p.Index} className={p.ClassName} callBack={this.callBack}/>;
+        return <PageLinker key={p.Key} text={p.Text} index={p.Index} className={p.ClassName} callBack={(index)=>{console.log(index); this.props.callBack(index)}}/>;
     }
 
     goIndexChanged(e) {
@@ -61,8 +61,8 @@ class Pager extends React.Component {
 		}
 		var totalPages = this.getTotalPages();
 		var arr=[];
-		var prevDisplay = 0===this.props.pageIndex?'disabled':'';
-		var lastDisplay = totalPages-1===this.props.pageIndex?'disabled':'';
+		var prevDisplay = 0===this.props.pageIndex?'disabled page-item':'page-item';
+		var lastDisplay = totalPages-1===this.props.pageIndex?'disabled page-item':'page-item';
 		arr.push(
 			this.getPageLink({
 				Key : "F",
@@ -89,7 +89,7 @@ class Pager extends React.Component {
 						Key : i,
 						Text :  i + 1,
 						Index : i,
-						ClassName : i===this.props.pageIndex?'active':''
+						ClassName : i===this.props.pageIndex?'active page-item':'page-item'
 					})
 				);
 			}
@@ -125,15 +125,17 @@ class Pager extends React.Component {
 		if(this.props.recordTextFormat.length>0){//显示文本
 			arr.push(
 				<li key="T" style={{marginLeft:5}}>
-					<span>{this.props.recordTextFormat.replace(/\{0\}/g, this.props.pageIndex + 1)
+					<span style={{lineHeight:2.5}}>{this.props.recordTextFormat.replace(/\{0\}/g, this.props.pageIndex + 1)
 					.replace(/\{1\}/g, totalPages).replace(/\{2\}/g, this.props.totalCount)}</span>
 				</li>
 			);
 		}
 		return (
-			<ul className="pagination" style={{margin: '0px 0px',display:display}}>
-				{arr}
-			</ul>
+            <nav aria-label="Page navigation example">
+                <ul className="pagination" style={{margin: '10px 0px',display:display}}>
+                    {arr}
+                </ul>
+            </nav>
 		);
 
     }

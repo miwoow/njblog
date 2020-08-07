@@ -27,7 +27,7 @@ function BlogList(props) {
                 count: data['msg']['allnum']
             });
         });
-    }, []);
+    }, [page]);
 
     function onLikeClick(e) {
         var click_blog_id = e.target.id;
@@ -61,6 +61,16 @@ function BlogList(props) {
             }
         });
       }
+
+      function pageIndexChanged(index) {
+        setPage(index);
+        // $.get(process.env.REACT_APP_API_HOST+'api/getblogs/'+page, function(data) {
+        //     setBlogs({
+        //         data: data['msg']['docs'],
+        //         count: data['msg']['allnum']
+        //     });
+        // });
+    }
   
     var pagerSetting={
         totalCount:blogs.count,
@@ -74,6 +84,8 @@ function BlogList(props) {
         //showLinkNum:2,
         callBack:(page) => {setPage(page)}
     };
+
+    
 
     return (
         <div className="BlogList">

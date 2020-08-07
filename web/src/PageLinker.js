@@ -15,7 +15,7 @@ class PageLinker extends React.Component {
 
     render() {
         return (
-			<li className={this.props.className} onClick={this.clickEvent}><a href="javascript:void(0)">{this.props.text}</a></li>
+			<li className={this.props.className} onClick={this.clickEvent}><a className="page-link" href="javascript:void(0)">{this.props.text}</a></li>
 		);
     }
 }

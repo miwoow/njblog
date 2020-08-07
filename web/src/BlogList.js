@@ -87,7 +87,7 @@ function BlogList(props) {
                 <div className="Blog" key={blog._id.toString()} id={blog._id.toString()}>
                     <h1>{blog.title}</h1>
                     <div className="blog-author">{blog.createAt.substring(0, 10)} by <Link to="/about">xd</Link></div>
-                    <ReactMarkdown source={blog.body} />
+                    <ReactMarkdown source={blog.body} className="blog-markdown-content" />
                     <motion.div 
                         whileHover={{y:+2, x:+2}}
                         className="Like">

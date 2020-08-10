@@ -6,6 +6,7 @@ import About from './About';
 import Seed from './Seed';
 import MLogin from './Login';
 import Admin from './Admin';
+import BlogPage from './BlogPage';
 
 import { useCookies } from 'react-cookie';
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/seed" component={Seed} />
           <Route path="/login" component={MLogin} />
           <Route path="/admin" component={Admin} />
+          <Route path="/blog/:bid" component={BlogPage} />
         </div>
         <footer>
           <hr />

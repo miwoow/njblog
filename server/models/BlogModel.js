@@ -25,6 +25,18 @@ class BlogModel {
         });
     }
 
+    findById(id, callback) {
+        this.getCollection(function(err, blog_collection) {
+            if (err) {
+                callback(err);
+            } else {
+                blog_collection.findOne({'_id': ObjectId(id)}, function(err, docs) {
+                    callback(err, docs);
+                });
+            }
+        });
+    }
+
     findAndIncLike(id, callback) {
         this.getCollection(function(err, blog_collection) {
             if (err) {

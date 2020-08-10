@@ -95,6 +95,11 @@
   cursor: pointer;
 }
 
+.Blog h1 a {
+  font-weight: bold;
+  color: black;
+}
+
 .Blog h1 {
   font-weight: bold;
 }

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import $ from 'jquery'
-import Pager from './Pager'
+import $ from 'jquery';
+import Pager from './Pager';
 
 import { Alert } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
-import { Link } from 'react-router-dom'
-import ReactMarkdown from 'react-markdown'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import ReactMarkdown from 'react-markdown';
 import CodeBlock from './CodeBlock';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import { Route, Link } from "react-router-dom";
+import BlogPage from "./BlogPage";
 
 function BlogList(props) {
 
@@ -85,14 +86,12 @@ function BlogList(props) {
         callBack:(page) => {setPage(page)}
     };
 
-    
-
     return (
         <div className="BlogList">
         <content>
             { blogs.data && blogs.data.map((blog)=>
                 <div className="Blog" key={blog._id.toString()} id={blog._id.toString()}>
-                    <h1>{blog.title}</h1>
+                    <h1><Link to={"/blog/"+blog._id} >{blog.title}</Link></h1>
                     <div className="blog-author">{blog.createAt.substring(0, 10)} by <Link to="/about">xd</Link></div>
                     <ReactMarkdown 
                         source={blog.body} 

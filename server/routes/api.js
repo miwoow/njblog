@@ -30,6 +30,16 @@ router.post('/saveblog', function(req, res, next) {
     }
 });
 
+router.get('/getblog/:bid', function(req, res, next) {
+    console.log(req.params.bid);
+    var blogid = req.params.bid;
+    if (blogid.length > 5) {
+        blogModel.findById(blogid, function(err, doc) {
+            res.json({'code': 0, 'msg': {'blog': doc}});
+        });
+    }
+});
+
 router.post('/like', function(req, res, next) {
     console.log(req.body['id']);
     var id = req.body['id'];

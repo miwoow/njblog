@@ -5,10 +5,13 @@ var path = require('path');
 const formidable = require('formidable');
 const { route } = require('.');
 const md5 = require('md5-node');
+const { CommentModel } = require('../models/CommentModel');
+const { parse } = require('path');
 
 var router = express.Router();
 
 var blogModel = new BlogModel();
+var commentModel = new CommentModel();
 
 var gToken = '';
 
@@ -28,6 +31,38 @@ router.post('/saveblog', function(req, res, next) {
     } else {
         res.json({'code': 1, 'msg': 'need auth'});
     }
+});
+
+router.post('/sendcomment', function(req, res, next) {
+    blogId = req.body['id'];
+    comment = req.body['comment'];
+
+    blogModel.findById(blogId, function(err, blog) {
+        if (err) {
+            res.json({'code': 1, 'msg': 'blog is not exist'});
+        } else {
+            commentModel.createComment(blogId, comment, function(err1, comment) {
+                if(err1) {
+                    res.json({'code': 1, 'msg': err1});
+                } else {
+                    res.json({'code': 0, 'msg': comment});
+                }
+            });
+        }
+    });
+});
+
+router.get('/getcomment/:bid/:page', function(req, res, next) {
+    var blogId = req.params.bid;
+    var page = parseInt(req.params.page);
+
+    commentModel.findPage(blogId, page, function(err, docs) {
+        if(err) {
+            res.json({'code': 1, 'msg': err});
+        } else {
+            res.json({'code': 0, 'msg': docs});
+        }
+    });
 });
 
 router.get('/getblog/:bid', function(req, res, next) {

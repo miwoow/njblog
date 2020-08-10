@@ -103,3 +103,12 @@
 .Blog h1 {
   font-weight: bold;
 }
+
+.comment {
+  margin-top:20px;
+}
+
+.text-right {
+  margin-top:10px;
+  text-align: right;
+}

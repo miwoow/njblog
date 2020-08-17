@@ -112,3 +112,7 @@
   margin-top:10px;
   text-align: right;
 }
+
+img {
+  max-width: 920px;
+}

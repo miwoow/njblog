@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 var authServiceRouter = require('./routes/authService');
 
+require('dotenv').config()
+
 var app = express();
 
 // view engine setup

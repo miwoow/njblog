@@ -14,3 +14,15 @@ blog by nodejs express
 1. blog show
 2. tag, pagination, date catalog
 3. photo album
+
+# start
+
+server start:
+
+	cd server
+	npm run dev
+
+web start:
+
+	cd web
+	npm start

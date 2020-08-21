@@ -28,6 +28,18 @@ router.post('/createUserWithEmailAndPassword', function(req, res, next) {
     });
 });
 
+router.post('/sendEmailVerification', function(req, res, next) {
+    var email = req.body['email'];
+     // 发送激活邮件。
+     actionCodeModel.genActionCode(ActionCodeType.ACTIVE_ACCOUNT, email, function(err, doc) {
+        var mailUtil = new MailUtil();
+        var activeUrl = process.env.MY_HOST+'authService/applyActionCode/'+doc.code;
+        console.log(activeUrl);
+        mailUtil.sendMail(email, '帐号激活', '点击链接，激活帐号：<a href="'+activeUrl+'">激活帐号</a>');
+        res.json({'code': 0, 'msg': 'ok'});
+    });
+});
+
 router.post('/signInWithEmailAndPassword', function(req, res, next) {
     var email = req.body['email'];
     var password = req.body['password'];

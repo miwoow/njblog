@@ -8,22 +8,23 @@ function MLogin() {
 
     const [email, setEmail] = useState('');
     const [passwd, setPasswd] = useState('');
-    const [cookies, setCookies] = useCookies('token');
+    const [cookies, setCookies] = useCookies('FTCOOKIEID');
     
     function onLogin(e) {
         $.ajax({
-            url: process.env.REACT_APP_API_HOST+'api/login',
-                type:'POST',
-                data: 'email='+email+'&passwd='+passwd,
-                success: function (data) {
-                    if (data.code === 0) {
-                        console.log(data.msg.token);
-                        setCookies('token', data.msg.token);
-                        window.location.href='/admin';
-                    } else {
-                        console.log(data.msg);
-                    }
-                }.bind(this)
+            // url: process.env.REACT_APP_API_HOST+'api/login',
+            url: process.env.REACT_APP_API_HOST+'authService/signInWithEmailAndPassword',
+            type:'POST',
+            data: 'email='+email+'&password='+passwd,
+            success: function (data, textStatus, request) {
+                console.log(request.getResponseHeader('Set-Cookie'));
+                if (data.code === 0) {
+                    setCookies('FTCOOKIEID', data.msg.FTCOOKIEID);
+                    window.location.href='/admin';
+                } else {
+                    console.log(data.msg);
+                }
+            }.bind(this)
         });
     }
 

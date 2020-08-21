@@ -6,31 +6,33 @@ const formidable = require('formidable');
 const { route } = require('.');
 const md5 = require('md5-node');
 const { CommentModel } = require('../models/CommentModel');
+const { AuthServiceSessionModel } = require('../models/AuthServiceSessionModel');
 const { parse } = require('path');
 
 var router = express.Router();
 
 var blogModel = new BlogModel();
 var commentModel = new CommentModel();
+var authServiceSessionModel = new AuthServiceSessionModel();
 
 var gToken = '';
 
 /* GET home page. */
 router.post('/saveblog', function(req, res, next) {
-    console.log(gToken);
-    console.log('=============')
-    console.log(req.body['token']);
-    if (gToken.length > 5 && req.body['token'] === gToken) {
-        blogModel.createBlog(req.body['title'], req.body['body'], function(err, doc) {
-            if (err) {
-                res.json({'code': 1, 'msg': err});
-            } else {
-                res.json({'code': 0, 'msg': 'ok'});
-            }
-          });
-    } else {
-        res.json({'code': 1, 'msg': 'need auth'});
-    }
+    authServiceSessionModel.isLogin(req.cookies['FTCOOKIEID'], function(err, doc) {
+        console.log(doc);
+        if (doc.expired) {
+            res.json({'code': 1, 'msg': 'session expired'});
+        } else {
+            blogModel.createBlog(req.body['title'], req.body['body'], function(err, doc) {
+                if (err) {
+                    res.json({'code': 1, 'msg': err});
+                } else {
+                    res.json({'code': 0, 'msg': 'ok'});
+                }
+            });
+        }
+    });
 });
 
 router.post('/sendcomment', function(req, res, next) {
@@ -88,8 +90,8 @@ router.post('/like', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-    if (req.body['email']===process.env.ADMIN_USER && req.body['passwd'] ===process.env.ADMIN_PASS) {
-        gToken = md5(new Date() + req.body['email'] + req.body['passwd']);
+    if (req.body['email']===process.env.ADMIN_USER && req.body['password'] ===process.env.ADMIN_PASS) {
+        gToken = md5(new Date() + req.body['email'] + req.body['password']);
         res.cookie('token', gToken);
         res.json({'code': 0, 'msg': {'token': gToken}});
     } else {

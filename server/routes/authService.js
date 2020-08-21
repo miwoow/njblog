@@ -1,12 +1,14 @@
 var express = require('express');
 const { AuthServiceUserModel } = require('../models/AuthServiceUserModel');
 const { ActionCodeModel, ActionCodeType } = require('../models/ActionCodeModel');
+const { AuthServiceSessionModel } = require('../models/AuthServiceSessionModel');
 const { MailUtil } = require('../utils/MailUtil');
 
 var router = express.Router();
 
 var authServiceUserModel = new AuthServiceUserModel();
 var actionCodeModel = new ActionCodeModel();
+var authServiceSessionModel = new AuthServiceSessionModel();
 
 router.post('/createUserWithEmailAndPassword', function(req, res, next) {
     var email = req.body['email'];
@@ -48,7 +50,12 @@ router.post('/signInWithEmailAndPassword', function(req, res, next) {
         if (err) {
             res.json({'code': 1, 'msg': err});
         } else {
-            res.json({'code': 0, 'msg': doc});
+            // 登录成功，设置cookie
+            authServiceSessionModel.createSession('', function(err, doc) {
+                var cookieId = doc.sessionId;
+                res.cookie('FTCOOKIEID', cookieId);
+                res.json({'code': 0, 'msg': {'FTCOOKIEID': cookieId}});
+            });            
         }
     });
 });

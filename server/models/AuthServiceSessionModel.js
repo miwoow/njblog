@@ -1,4 +1,6 @@
+const { v4: uuidv4 } = require('uuid');
 const { ObjectId } = require('mongodb');
+
 
 var MongoClient = require('mongodb').MongoClient;
 
@@ -16,7 +18,7 @@ class AuthServiceSessionModel {
     }
 
     getCollection(callback) {
-        this.db.collection('blog', function(err, collection) {
+        this.db.collection('session', function(err, collection) {
             if (err) {
                 callback(err);
             } else {
@@ -25,7 +27,27 @@ class AuthServiceSessionModel {
         });
     }
 
-    createSession(sessionId, sessionData, callback) {
+    // 暂时使用登录时间，过7天超时。
+    isLogin(sessionId, callback) {
+        this.getCollection(function(err, collection) {
+            if (err) callback(err);
+            else {
+                collection.findOne({'sessionId': sessionId}, function(err, doc) {
+                    var idleSecs = parseInt(new Date() - doc['lastActionTime']) / 1000;
+                    // 有效期7天
+                    if (idleSecs > 604800) {
+                        doc.expired = true;
+                    } else {
+                        doc.expired = false;
+                    }
+                    callback(err, doc);
+                });
+            }
+        });
+    }
+
+    createSession(sessionData, callback) {
+        var sessionId = uuidv4();
         this.getCollection(function(err, collection) {
             if (err) callback(err);
             else {

@@ -12,11 +12,13 @@ import { useCookies } from 'react-cookie';
 
 function App() {
 
-  const [cookies, setCookies] = useCookies('token');
+  const [cookies, setCookies] = useCookies('FTCOOKIEID');
 
   function loginLink() {
-    if (cookies.token && cookies.token.length > 5) {
-      return (<div className="App-right-menu-item"><Link to="/admin">Admin</Link></div>);
+    if (cookies.FTCOOKIEID && cookies.FTCOOKIEID.length > 5) {
+      return (
+        <div className="App-right-menu-item"><Link to="/admin">Say</Link></div>
+        );
     } else {
       return (<div className="App-right-menu-item"><Link to="/login">Login</Link></div>);
     }

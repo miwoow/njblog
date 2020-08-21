@@ -88,7 +88,7 @@ router.post('/like', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-    if (req.body['email']==='a@qq.com' && req.body['passwd'] ==='123') {
+    if (req.body['email']===process.env.ADMIN_USER && req.body['passwd'] ===process.env.ADMIN_PASS) {
         gToken = md5(new Date() + req.body['email'] + req.body['passwd']);
         res.cookie('token', gToken);
         res.json({'code': 0, 'msg': {'token': gToken}});

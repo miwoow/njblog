@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 class BlogModel {
     constructor() {
         var that = this;
-        var mongodbUri = 'mongodb://localhost/myblog';
+        var mongodbUri = process.env.MONGO_URI;
         MongoClient.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
             if (err) {
                 return console.dir(err);

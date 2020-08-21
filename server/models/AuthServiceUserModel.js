@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 class AuthServiceUserModel {
     constructor() {
         var that = this;
-        var mongodbUri = 'mongodb://localhost/myblog';
+        var mongodbUri = process.env.MONGO_URI;
         MongoClient.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
             if (err) {
                 return console.dir(err);
@@ -21,6 +21,17 @@ class AuthServiceUserModel {
                 callback(err);
             } else {
                 callback(null, collection);
+            }
+        });
+    }
+
+    activeUser(email, callback) {
+        this.getCollection(function(err, collection) {
+            if (err) callback(err);
+            else {
+                collection.findOneAndUpdate({'email': email}, {'$set': {'actived': true}}, function(err, doc) {
+                    callback(err, doc);
+                });
             }
         });
     }

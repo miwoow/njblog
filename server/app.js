@@ -1,3 +1,4 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,7 +10,7 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 var authServiceRouter = require('./routes/authService');
 
-require('dotenv').config()
+
 
 var app = express();
 

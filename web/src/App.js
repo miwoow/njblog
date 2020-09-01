@@ -44,10 +44,16 @@ function App() {
           <Route path="/admin" component={Admin} />
           <Route path="/blog/:bid" component={BlogPage} />
         </div>
+        <hr />
         <footer>
-          <hr />
-          <div>MAIL: <a href="mailto://xdsecret1@gmail.com">xdsecret1@gmail.com</a></div>
-          <div><a href="http://www.beian.miit.gov.cn/">京ICP备19053525号-1</a></div>
+          <div className="line">
+              <span className="thead">邮箱: </span>
+              <span><a href="mailto://xdsecret1@gmail.com">xdsecret1@gmail.com</a></span>
+          </div>
+          <div className="line">
+              <span className="thead">备案: </span>
+              <span><a href="http://www.beian.miit.gov.cn/">京ICP备19053525号-1</a></span>
+            </div>
         </footer>
       </div>
     );

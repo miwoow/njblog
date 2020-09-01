@@ -116,3 +116,24 @@
 img {
   max-width: 920px;
 }
+
+footer {
+  margin: 20px auto 100px auto;
+  font-size: 11pt;
+  color: gray;
+  text-align: left;
+  max-width: 80%;
+}
+
+.line {
+  line-height: 25px;
+}
+
+footer a {
+  color: gray;
+}
+
+.thead {
+  width: 55px;
+  display: inline-block;
+}

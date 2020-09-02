@@ -7,6 +7,7 @@ class Seed extends React.Component {
         return (
             <div className="Seed">
                 <h1>Seed</h1>
+                <p><a href={process.env.REACT_APP_API_HOST+"api/rss"}>{process.env.REACT_APP_API_HOST}api/rss</a></p>
             </div>
         )
     }

@@ -8,6 +8,7 @@ const md5 = require('md5-node');
 const { CommentModel } = require('../models/CommentModel');
 const { AuthServiceSessionModel } = require('../models/AuthServiceSessionModel');
 const { parse } = require('path');
+const { Feed } = require('feed');
 
 var router = express.Router();
 
@@ -31,6 +32,35 @@ router.post('/saveblog', function(req, res, next) {
                     res.json({'code': 0, 'msg': 'ok'});
                 }
             });
+        }
+    });
+});
+
+router.get('/rss', function(req, res, next) {
+    var feed = new Feed({
+        title: '闲情逸志的博客',
+        description: 'Blog Feed',
+        link: 'http://blog.haoshui.co',
+        copyright: 'Copyright 2020 Xu Dong. All rights reserved.',
+        author: {
+            name: 'Xu Dong',
+            email: 'xdsecret1@gmail.com',
+            link: 'https://www.haoshui.co'
+        }
+    });
+    blogModel.findLatestForSeed(5, function(err, docs) {
+        if(err) res.send('404 Not Found', 404);
+        else {
+            for(var index in docs) {
+                feed.addItem({
+                    title: docs[index].title,
+                    link: process.env.MY_HOST+'blog/'+docs[index]._id,
+                    description: docs[index].body,
+                    date: docs[index].createAt
+                });
+            }
+            res.set('Content-Type', 'text/xml');
+            res.send(feed.rss2());
         }
     });
 });

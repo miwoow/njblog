@@ -53,7 +53,11 @@ class AuthServiceUserModel {
             if (err) callback(err);
             else {
                 collection.findOne({'email': email, 'password': password}, function(err, docs){
-                    callback(err, docs);
+                    if (docs.actived) {
+                        callback(err, docs);
+                    } else {
+                        callback('请先激活您的帐号！', docs);
+                    }
                 });
             }
         });

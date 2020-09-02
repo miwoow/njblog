@@ -25,6 +25,17 @@ class BlogModel {
         });
     }
 
+    findLatestForSeed(num, callback) {
+        this.getCollection(function(err, collection) {
+            if (err) callback(err);
+            else {
+                collection.find().sort({'createAt': -1}).limit(5).toArray(function(err, docs) {
+                    callback(err, docs);
+                });
+            }
+        });
+    }
+
     findById(id, callback) {
         this.getCollection(function(err, blog_collection) {
             if (err) {

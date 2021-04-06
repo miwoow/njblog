@@ -38,7 +38,8 @@ class Admin extends React.Component {
                 },
                 type: 'POST',
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
+                    window.location.href="/"
                 }
             });
         } else if (event.target.name === 'blogtitle') {

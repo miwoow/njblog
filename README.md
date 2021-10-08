@@ -4,8 +4,8 @@ blog by nodejs express
 # steps
 
 1. [starter tutorial](http://expressjs.com/en/starter/generator.html)
-2. npx express-generator --view=pug
-3. npm install
+2. `npx express-generator --view=pug`
+3. `npm install`
 4. `DEBUG=server:* npm start`
 
 
@@ -20,11 +20,13 @@ blog by nodejs express
 server start:
 
 	cd server
+	npm install
 	npm run dev
 
 web start:
 
 	cd web
+	npm install
 	npm start
 
 # RoadMap
